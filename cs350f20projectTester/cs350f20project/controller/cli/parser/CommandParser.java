@@ -186,6 +186,40 @@ public class CommandParser {
 			
 		}
 		
+		if (this.commandText.equalsIgnoreCase("OPEN VIEW id1 ORIGIN ( coordinates_world | ( '$' id2 ) ) WORLD WIDTH integer1 SCREEN WIDTH integer2 HEIGHT integer3")) // 56
+		{
+			
+		}
+		
+		if (this.commandText.equalsIgnoreCase("COMMIT")) // 60
+		{
+			
+		}
+		
+		if (this.commandText.equalsIgnoreCase("COUPLE STOCK id1 AND id2")) // 61
+		{
+			
+		}
+		if (this.commandText.equalsIgnoreCase("LOCATE STOCK id1 ON TRACK id2 DISTANCE number FROM ( START | END )")) // 62
+		{
+			
+		}
+		
+		if (this.commandText.equalsIgnoreCase("UNCOUPLE STOCK id1 AND id2")) // 65
+		{
+			
+		}
+		
+		if (this.commandText.equalsIgnoreCase("USE id AS REFERENCE coordinates_world ")) // 66
+		{
+			
+		}
+		
+		if (this.commandText.equalsIgnoreCase("Rule#2 through Rule#65")) // 67
+		{
+			
+		}
+		
 	}
 	
 }
