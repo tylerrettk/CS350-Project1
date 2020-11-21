@@ -21,7 +21,8 @@ public class CommandParser {
 			A_Command command = new CommandMetaDoExit();
 			this.parserHelper.getActionProcessor().schedule(command);
 		} 
-		if (this.commandText.equalsIgnoreCase("( ( Rule#66 | Rule#67 ) ( ';' )? )*\r\n")) // 1 || still have questions about this one
+		
+		if (this.commandText.equalsIgnoreCase("( ( Rule#66 | Rule#67 ) ( ';' )? )*\r\n")) // 1
 		{
 
 		} 
@@ -61,7 +62,7 @@ public class CommandParser {
 
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("DO SET REFERENCE ENGINE id ")) // 22 
+		if (this.commandText.equalsIgnoreCase("DO SET REFERENCE ENGINE id")) // 22 
 		{
 
 		} 
@@ -172,11 +173,6 @@ public class CommandParser {
 		}
 		
 		if (this.commandText.equalsIgnoreCase("@RUN string")) // 52
-		{
-			
-		}
-		
-		if (this.commandText.equalsIgnoreCase("@SCHEDULE AT number Rule#67")) // 53
 		{
 			
 		}
