@@ -16,13 +16,15 @@ public class CommandParser {
 	
 	public void parse()
 	{
+		String nospacescommandtext = this.commandText.replaceAll(" ","");
+		
 		if (this.commandText.equalsIgnoreCase("@exit")) // 51
 		{
 			A_Command command = new CommandMetaDoExit();
 			this.parserHelper.getActionProcessor().schedule(command);
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("( ( Rule#66 | Rule#67 ) ( ';' )? )*\r\n")) // 1
+		if (this.commandText.equalsIgnoreCase("( ( Rule#66 | Rule#67 ) ( ';' )? )*\r\n")) // 1 || Accepts rules 1 - 67 
 		{
 
 		} 
@@ -62,22 +64,22 @@ public class CommandParser {
 
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("DO SET REFERENCE ENGINE id")) // 22 
+		if (this.commandText.equalsIgnoreCase("CREATE POWER CATENARY id1 WITH POLES idn+")) // 22 
 		{
 
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("DO SET id SPEED number")) // 23
+		if (this.commandText.equalsIgnoreCase("CREATE POWER POLE id1 ON TRACK id2 DISTANCE number FROM START") || this.commandText.equalsIgnoreCase("CREATE POWER POLE id1 ON TRACK id2 DISTANCE number FROM END"))  // 23
 		{
 
 		}
 		
-		if (this.commandText.equalsIgnoreCase("DO SET REFERENCE ENGINE id ")) // 24 
+		if (this.commandText.equalsIgnoreCase("CREATE POWER STATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH ( SUBSTATION | SUBSTATIONS ) idn+")) // 24 || ...
 		{
 
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("DO SET id SPEED number")) // 25 
+		if (this.commandText.equalsIgnoreCase("CREATE POWER SUBSTATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH CATENARIES idn+")) // 25 
 		{
 
 		}
@@ -112,7 +114,7 @@ public class CommandParser {
 
 		}
 		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM ( START | END ) FACING ( START | END )")) // 34 || come back to this one
+		if (this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM START FACING START") || this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM END FACING START") || this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM START FACING END") || this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM END FACING END")) // 34
 		{
 
 		}
@@ -196,7 +198,8 @@ public class CommandParser {
 		{
 			
 		}
-		if (this.commandText.equalsIgnoreCase("LOCATE STOCK id1 ON TRACK id2 DISTANCE number FROM ( START | END )")) // 62
+		
+		if (this.commandText.equalsIgnoreCase("LOCATE STOCK id1 ON TRACK id2 DISTANCE number FROM START") || this.commandText.equalsIgnoreCase("LOCATE STOCK id1 ON TRACK id2 DISTANCE number FROM END")) // 62
 		{
 			
 		}
@@ -206,7 +209,7 @@ public class CommandParser {
 			
 		}
 		
-		if (this.commandText.equalsIgnoreCase("USE id AS REFERENCE coordinates_world ")) // 66
+		if (this.commandText.equalsIgnoreCase("USE id AS REFERENCE coordinates_world")) // 66
 		{
 			
 		}
