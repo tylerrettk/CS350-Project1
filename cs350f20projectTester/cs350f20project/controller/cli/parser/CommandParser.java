@@ -17,6 +17,7 @@ public class CommandParser {
 	public void parse()
 	{
 		String nospacescommandtext = this.commandText.replaceAll(" ","");
+		String tempchecker = "";
 		
 		if (this.commandText.equalsIgnoreCase("@exit")) // 51
 		{
@@ -24,7 +25,7 @@ public class CommandParser {
 			this.parserHelper.getActionProcessor().schedule(command);
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("( ( Rule#66 | Rule#67 ) ( ';' )? )*\r\n")) // 1 || Accepts rules 1 - 67 
+		if (this.commandText.equalsIgnoreCase("( ( Rule#66 | Rule#67 ) ( ';' )? )*\r\n")) // 1 || Accepts rules 2 - 67 
 		{
 
 		} 
@@ -214,11 +215,33 @@ public class CommandParser {
 			
 		}
 		
-		if (this.commandText.equalsIgnoreCase("Rule#2 through Rule#65")) // 67
+		if (RuleHelper(nospacescommandtext, tempchecker)) // 67 || rule2 - rule65
 		{
-			
+			System.out.println("Command 67");
 		}
+
+	}
+	
+	
+	// checks for rule 2-65 as commandtext and returns true if the rule is between 2-65 || helper for command 67
+	private boolean RuleHelper(String nospacescommandtext, String numchecker)
+	{	
+		if(nospacescommandtext.length() > 6)
+	{
+		numchecker = commandText.substring(commandText.length() - 2);
+		nospacescommandtext = nospacescommandtext.substring(0, nospacescommandtext.length() - 2);
 		
+		if(Integer.parseInt(numchecker) < 66 && Integer.parseInt(numchecker) > 1)
+			return true;
+	}
+		else if(nospacescommandtext.length() == 6)
+	{
+		numchecker = commandText.substring(commandText.length() - 1);
+		nospacescommandtext = nospacescommandtext.substring(0, nospacescommandtext.length() - 1);
+		if(Integer.parseInt(numchecker) < 66 && Integer.parseInt(numchecker) > 1)
+			return true;
+	}
+	return false;
 	}
 	
 }
