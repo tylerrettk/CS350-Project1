@@ -30,219 +30,65 @@ public class CommandParser {
 
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("DO BRAKE id")) // 2 
+		if (nospacescommandtext.substring(0, 7).equalsIgnoreCase("DOBRAKE")) // 2 
 		{
-
+			System.out.println("Command 2");
 		} 
 		
-		if (this.commandText.equalsIgnoreCase("DO SELECT DRAWBRIDGE id POSITION UP") || this.commandText.equalsIgnoreCase("DO SELECT DRAWBRIDGE id POSITION DOWN")) // 6
+		if (nospacescommandtext.substring(0, 8).equalsIgnoreCase("DOSELECT")) // 6 - 8
 		{
-
+			System.out.println("Command 6 - 8");
+		}
+ 
+		if (nospacescommandtext.substring(0, 5).equalsIgnoreCase("DOSET")) // 11 - 15
+		{
+			System.out.println("Command 11 - 15");
+		} 
+		
+		if (nospacescommandtext.substring(0, 11).equalsIgnoreCase("CREATEPOWER")) // 22 - 25
+		{
+			System.out.println("Command 22 - 25");
+		} 
+		
+		if (nospacescommandtext.substring(0, 11).equalsIgnoreCase("CREATESTOCK")) // 28 - 34 
+		{
+			System.out.println("Command 28 - 34");
+		} 
+		
+		if (nospacescommandtext.substring(0, 11).equalsIgnoreCase("CREATETRACK")) // 39 - 49
+		{
+			System.out.println("Command 39 - 49");
+		} 
+		
+		if (nospacescommandtext.substring(0, 10).equalsIgnoreCase("@RUNSTRING")) // 52
+		{
+			System.out.println("Command 52");
 		}
 		
-		if (this.commandText.equalsIgnoreCase("DO SELECT ROUNDHOUSE id POSITION angle CLOCKWISE") || this.commandText.equalsIgnoreCase("DO SELECT ROUNDHOUSE id POSITION angle COUNTERCLOCKWISE")) // 7 
+		if (nospacescommandtext.substring(5, 9).equalsIgnoreCase("VIEW") || nospacescommandtext.substring(4, 8).equalsIgnoreCase("VIEW")) // 55
 		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("DO SELECT SWITCH id PATH PRIMARY") || this.commandText.equalsIgnoreCase("DO SELECT SWITCH id PATH SECONDARY")) // 8 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("DO SET id DIRECTION FORWARD") || this.commandText.equalsIgnoreCase("DO SET id DIRECTION BACKWARD")) // 11
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("DO SET REFERENCE ENGINE id ")) // 12 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("DO SET id SPEED number")) // 15 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE POWER CATENARY id1 WITH POLES idn+")) // 22 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE POWER POLE id1 ON TRACK id2 DISTANCE number FROM START") || this.commandText.equalsIgnoreCase("CREATE POWER POLE id1 ON TRACK id2 DISTANCE number FROM END"))  // 23
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE POWER STATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH ( SUBSTATION | SUBSTATIONS ) idn+")) // 24 || ...
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE POWER SUBSTATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH CATENARIES idn+")) // 25 
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK CAR id AS BOX")) // 28 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK CAR id AS CABOOSE")) // 29
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK CAR id AS FLATBED")) // 30 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK CAR id AS PASSENGER")) // 31
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK CAR id AS TANK")) // 32 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK CAR id AS TENDER")) // 33
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM START FACING START") || this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM END FACING START") || this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM START FACING END") || this.commandText.equalsIgnoreCase("CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM END FACING END")) // 34
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK BRIDGE DRAW id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2 ANGLE angle")) // 39 || come back to this one
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("* CREATE TRACK BRIDGE id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2")) // 40 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK CROSSING id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2")) // 41
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK CROSSOVER id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2\r\n" + "START coordinates_delta3 END coordinates_delta4\r\n")) // 42 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK CURVE id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2\r\n" + "( ( DISTANCE ORIGIN number ) | ( ORIGIN coordinates_delta3 ) )\r\n")) // 43
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK END id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2")) // 44
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK LAYOUT id1 WITH TRACKS idn+")) // 45 
-		{
-
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK ROUNDHOUSE id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA ORIGIN coordinates_delta1 ANGLE ENTRY angle1 START angle2 END angle3 WITH integer SPURS LENGTH number1 TURNTABLE LENGTH number2")) // 46
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK STRAIGHT id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2")) // 47 
-		{
-			
-		} 
-		
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK SWITCH TURNOUT id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) STRAIGHT DELTA START coordinates_delta1 END coordinates_delta2 CURVE DELTA START coordinates_delta3 END coordinates_delta4 DISTANCE ORIGIN number")) // 48
-		{
-
-		}
-
-		if (this.commandText.equalsIgnoreCase("CREATE TRACK SWITCH WYE id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA START coordinates_delta1 END coordinates_delta2 DISTANCE ORIGIN number1 DELTA START coordinates_delta3 END coordinates_delta4 DISTANCE ORIGIN number2")) // 49
-		{
-
-		}
-		
-		if (this.commandText.equalsIgnoreCase("@RUN string")) // 52
-		{
-			
-		}
-		
-		if (this.commandText.equalsIgnoreCase("CLOSE VIEW id")) // 55
-		{
-			
-		}
-		
-		if (this.commandText.equalsIgnoreCase("OPEN VIEW id1 ORIGIN ( coordinates_world | ( '$' id2 ) ) WORLD WIDTH integer1 SCREEN WIDTH integer2 HEIGHT integer3")) // 56
-		{
-			
+			System.out.println("Command 55 - 56");
 		}
 		
 		if (this.commandText.equalsIgnoreCase("COMMIT")) // 60
 		{
-			
+			System.out.println("Command 60");
 		}
 		
-		if (this.commandText.equalsIgnoreCase("COUPLE STOCK id1 AND id2")) // 61
+		if (nospacescommandtext.substring(6, 11).equalsIgnoreCase("STOCK") || nospacescommandtext.substring(8, 13).equalsIgnoreCase("STOCK")) // 61
 		{
-			
+			System.out.println("Command 61 - 65");
 		}
 		
-		if (this.commandText.equalsIgnoreCase("LOCATE STOCK id1 ON TRACK id2 DISTANCE number FROM START") || this.commandText.equalsIgnoreCase("LOCATE STOCK id1 ON TRACK id2 DISTANCE number FROM END")) // 62
+		if (nospacescommandtext.substring(0, 3).equalsIgnoreCase("USE")) // 66
 		{
-			
+			System.out.println("Command 66");
 		}
 		
-		if (this.commandText.equalsIgnoreCase("UNCOUPLE STOCK id1 AND id2")) // 65
-		{
-			
-		}
-		
-		if (this.commandText.equalsIgnoreCase("USE id AS REFERENCE coordinates_world")) // 66
-		{
-			
-		}
-		
-		if (RuleHelper(nospacescommandtext, tempchecker)) // 67 || rule2 - rule65
+		if (this.commandText.equalsIgnoreCase("Rule2 - Rule65")) // 67 || rule2 - rule65
 		{
 			System.out.println("Command 67");
 		}
-
 	}
-	
-	
-	// checks for rule 2-65 as commandtext and returns true if the rule is between 2-65 || helper for command 67
-	private boolean RuleHelper(String nospacescommandtext, String numchecker)
-	{	
-		if(nospacescommandtext.length() > 6)
-	{
-		numchecker = commandText.substring(commandText.length() - 2);
-		nospacescommandtext = nospacescommandtext.substring(0, nospacescommandtext.length() - 2);
-		
-		if(Integer.parseInt(numchecker) < 66 && Integer.parseInt(numchecker) > 1)
-			return true;
-	}
-		else if(nospacescommandtext.length() == 6)
-	{
-		numchecker = commandText.substring(commandText.length() - 1);
-		nospacescommandtext = nospacescommandtext.substring(0, nospacescommandtext.length() - 1);
-		if(Integer.parseInt(numchecker) < 66 && Integer.parseInt(numchecker) > 1)
-			return true;
-	}
-	return false;
-	}
-	
 }
 
