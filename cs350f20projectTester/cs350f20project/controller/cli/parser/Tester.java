@@ -9,6 +9,8 @@ public class Tester {
 		 Startup whatever = new Startup();
 		 
 		 whatever.go();
+		 
+		 
 	}
 
 }

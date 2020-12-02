@@ -22,7 +22,13 @@ public class CommandParser {
 		{
 			A_Command command = new CommandMetaDoExit();
 			this.parserHelper.getActionProcessor().schedule(command);
-		} 
+		}
+		
+		if(this.commandText.contains("CREATE POWER"))
+		{
+			CreationalPower power = new CreationalPower(parserHelper, commandText.substring(13));
+			power.parse();
+		}
 	}
 	
 	public void commandSchedule()
