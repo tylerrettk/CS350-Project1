@@ -24,11 +24,19 @@ public class CommandParser {
 			this.parserHelper.getActionProcessor().schedule(command);
 		}
 		
-		if(this.commandText.contains("CREATE POWER"))
+		else if(this.commandText.contains("CREATE POWER"))
 		{
 			CreationalPower power = new CreationalPower(parserHelper, commandText.substring(13));
 			power.parse();
 		}
+		
+		else if(this.commandText.contains("CREATE STOCK"))
+		{
+			int k = this.commandText.indexOf("K")+2;
+			CreationalStock stock = new CreationalStock(parserHelper, commandText.substring(k));
+			stock.parse();
+		}
+			
 	}
 	
 	public void commandSchedule()
