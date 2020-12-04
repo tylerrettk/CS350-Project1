@@ -86,7 +86,7 @@ public class CreationalPower extends CommandParser{
 		List<String> idSubstations = new ArrayList<String>();
 		String id = this.commandSplit[1];
 		String idCoordinate = this.commandSplit[3];
-		CoordinatesWorld refCoordinate;
+		CoordinatesWorld refCoordinate = createCoordinate(idCoordinate);
 		
 		String[] delta = this.commandSplit[5].split(":");
 		double x = Double.parseDouble(delta[0]);
@@ -99,34 +99,6 @@ public class CreationalPower extends CommandParser{
 			idSubstations.add(this.commandSplit[z]);
 		}
 		
-		if(idCoordinate.contains("$"))
-		{
-			idCoordinate = idCoordinate.substring(idCoordinate.indexOf("$") +1);
-			refCoordinate = this.getHelper().getReference(idCoordinate);
-		}
-		
-		else
-		{
-			//123*45'29"/123*45'29"
-			
-			String[] coordinates = this.commandSplit[3].split("/");
-			String lat = coordinates[0];
-			
-			int hours = Integer.parseInt(lat.substring(0,lat.indexOf("*")));
-			int mintues = Integer.parseInt(lat.substring(lat.indexOf("*") +1,lat.indexOf("'")));
-			int seconds = Integer.parseInt(lat.substring(lat.indexOf("'") +1, lat.indexOf('"')));
-			
-			Latitude lat1 = new Latitude(hours,mintues,seconds);
-			
-			String longitude = coordinates[1];
-			hours = Integer.parseInt(longitude.substring(0,longitude.indexOf("*")));
-			mintues = Integer.parseInt(longitude.substring(longitude.indexOf("*") +1,longitude.indexOf("'")));
-			seconds = Integer.parseInt(longitude.substring(longitude.indexOf("*") +1,longitude.indexOf("'")));
-			
-			Longitude longi = new Longitude(hours, mintues, seconds);
-			
-			refCoordinate = new CoordinatesWorld(lat1, longi);
-		}
 		
 		this.setCommandType(new CommandCreatePowerStation(id, refCoordinate, deltaCoor, idSubstations));
 		this.commandSchedule();
@@ -139,7 +111,7 @@ public class CreationalPower extends CommandParser{
 		List<String> idSubstations = new ArrayList<String>();
 		String id = this.commandSplit[1];
 		String idCoordinate = this.commandSplit[3];
-		CoordinatesWorld refCoordinate;
+		CoordinatesWorld refCoordinate = createCoordinate(idCoordinate);
 		
 		String[] delta = this.commandSplit[5].split(":");
 		double x = Double.parseDouble(delta[0]);
@@ -152,6 +124,16 @@ public class CreationalPower extends CommandParser{
 			idSubstations.add(this.commandSplit[z]);
 		}
 		
+		
+		
+		this.setCommandType(new CommandCreatePowerSubstation(id, refCoordinate, deltaCoor, idSubstations));
+		this.commandSchedule();
+	}
+
+	private CoordinatesWorld createCoordinate(String idCoordinate)
+	{
+		CoordinatesWorld refCoordinate;
+
 		if(idCoordinate.contains("$"))
 		{
 			idCoordinate = idCoordinate.substring(idCoordinate.indexOf("$") +1);
@@ -162,7 +144,7 @@ public class CreationalPower extends CommandParser{
 		{
 			//123*45'29"/123*45'29"
 			
-			String[] coordinates = this.commandSplit[3].split("/");
+			String[] coordinates = idCoordinate.split("/");
 			String lat = coordinates[0];
 			
 			int hours = Integer.parseInt(lat.substring(0,lat.indexOf("*")));
@@ -181,9 +163,6 @@ public class CreationalPower extends CommandParser{
 			refCoordinate = new CoordinatesWorld(lat1, longi);
 		}
 		
-		this.setCommandType(new CommandCreatePowerSubstation(id, refCoordinate, deltaCoor, idSubstations));
-		this.commandSchedule();
+		return refCoordinate;
 	}
-	 //* CREATE POWER SUBSTATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH CATENARIES idn+
-
 }
