@@ -82,6 +82,7 @@ public class BehavioralSelect extends CommandParser{
 			primaryOrSecondary = true;
 		
 		this.setCommandType(new CommandBehavioralSelectSwitch(id, primaryOrSecondary));
+		this.commandSchedule();
 	}
 
 }
