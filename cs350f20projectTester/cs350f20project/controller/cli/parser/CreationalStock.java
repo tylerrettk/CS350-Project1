@@ -41,7 +41,7 @@ public class CreationalStock extends CommandParser{
 	}
 	
 	private void createCar()
-	{
+	{		
 		String id = this.commandSplit[1];
 		
 		if(!this.commandSplit[2].equalsIgnoreCase("as"))
@@ -53,31 +53,37 @@ public class CreationalStock extends CommandParser{
 		
 		if(type.equalsIgnoreCase("box"))
 		{
+
 			this.setCommandType(new CommandCreateStockCarBox(id));
 		}
 		
 		else if(type.equalsIgnoreCase("caboose"))
 		{
+
 			this.setCommandType(new CommandCreateStockCarCaboose(id));
 		}
 		
 		else if(type.equalsIgnoreCase("flatbed"))
 		{
+
 			this.setCommandType(new CommandCreateStockCarFlatbed(id));
 		}
 		
 		else if(type.equalsIgnoreCase("passenger"))
 		{
+
 			this.setCommandType(new CommandCreateStockCarPassenger(id));
 		}
 		
 		else if(type.equalsIgnoreCase("tank"))
 		{
+
 			this.setCommandType(new CommandCreateStockCarTank(id));
 		}
 		
 		else if(type.equalsIgnoreCase("tender"))
 		{
+
 			this.setCommandType(new CommandCreateStockCarTender(id));
 		}
 		
@@ -119,6 +125,7 @@ public class CreationalStock extends CommandParser{
 			isFacingStartElseEnd = true;
 		
 		this.setCommandType(new CommandCreateStockEngineDiesel(id, locator, isFacingStartElseEnd));
+
 		this.commandSchedule();
 	}
 }

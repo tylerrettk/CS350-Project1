@@ -45,8 +45,21 @@ public class CommandParser {
 			CreationalStock stock = new CreationalStock(parserHelper, commandText.substring(k));
 			stock.parse();
 		}
-		
-		// Add more if statements for other command groups
+		else if(CurrentCommand.substring(0, 12).equalsIgnoreCase("CREATE TRACK"))
+		{
+			CreationalTrack track = new CreationalTrack(parserHelper, commandText.substring(13));
+			track.parse();
+		}
+		else if(CurrentCommand.substring(0, 9).equalsIgnoreCase("DO SELECT"))
+		{
+			BehavioralSelect behsel = new BehavioralSelect(parserHelper, commandText.substring(10));
+			behsel.parse();
+		}
+		else if(CurrentCommand.substring(0, 6).equalsIgnoreCase("DO SET"))
+		{
+			BehavioralSet behset = new BehavioralSet(parserHelper, commandText.substring(7));
+			behset.parse();
+		}
 		
 		else
 		{

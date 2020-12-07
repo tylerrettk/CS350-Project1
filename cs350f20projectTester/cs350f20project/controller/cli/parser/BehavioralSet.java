@@ -44,6 +44,12 @@ public class BehavioralSet extends CommandParser{
 	public void direction()
 	{
 		//public CommandBehavioralSetDirection(java.lang.String id, boolean isForwardElseBackward)
+		
+		if((!this.getCommand().contains("DIRECTION") && (!this.getCommand().contains("FORWARD") || !this.getCommand().contains("BACKWARD"))))
+		{
+			throw new IllegalArgumentException("Incorrect format for command - BehavioralSet Class");
+		}
+		
 		String id = this.commandSplit[0];
 		boolean isForwardElseBackward = false;
 		
@@ -58,6 +64,12 @@ public class BehavioralSet extends CommandParser{
 	public void reference()
 	{
 		//public CommandBehavioralSetReference(java.lang.String id)
+		
+		if(!this.getCommand().contains("ENGINE"))
+		{
+			throw new IllegalArgumentException("Incorrect format for command - BehavioralSet Class");
+		}
+		
 		String id = this.commandSplit[2];
 		
 		this.setCommandType(new CommandBehavioralSetReference(id));
@@ -67,8 +79,20 @@ public class BehavioralSet extends CommandParser{
 	public void speed()
 	{
 		//public CommandBehavioralSetSpeed(java.lang.String id, double speed)
-		String id = this.commandSplit[0];
-		double speed = Double.parseDouble(this.commandSplit[2]);
+		String id;
+		double speed;
+		
+		try
+		{
+			id = this.commandSplit[0];
+			speed = Double.parseDouble(this.commandSplit[2]);
+		}
+		
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("Incorrect format for command - BehavioralSet Class");
+		}
+		
 		
 		this.setCommandType(new CommandBehavioralSetSpeed(id, speed));
 		this.commandSchedule();

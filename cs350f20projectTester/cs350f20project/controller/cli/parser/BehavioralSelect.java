@@ -30,10 +30,13 @@ public class BehavioralSelect extends CommandParser{
 			roundhouse();
 		}
 		
-		else
+		else if(this.commandSplit[0].equalsIgnoreCase("switch"))
 		{
 			switchPath();
 		}
+		
+		else
+			throw new IllegalArgumentException("Incorrect format for BehavioralSelect class");
 	}
 	
 	/*
@@ -44,6 +47,11 @@ public class BehavioralSelect extends CommandParser{
 	
 	public void drawbridge()
 	{
+		if((!this.getCommand().contains("POSITION") && (!this.getCommand().contains("UP") || !this.getCommand().contains("DOWN"))))
+		{
+			throw new IllegalArgumentException("Incorrect format for command - BehavioralSelect Class");
+		}
+		
 		String id = this.commandSplit[1];
 		boolean position = false;
 		
@@ -57,6 +65,12 @@ public class BehavioralSelect extends CommandParser{
 	public void roundhouse()
 	{
 		//public CommandBehavioralSelectRoundhouse(java.lang.String id, Angle angle, boolean isClockwise)
+		
+		if((!this.getCommand().contains("POSITION") && (!this.getCommand().contains("CLOCKWISE") || !this.getCommand().contains("COUNTERCLOCKWISE"))))
+		{
+			throw new IllegalArgumentException("Incorrect format for command - BehavioralSelect Class");
+		}
+		
 		String id = this.commandSplit[1];
 		Angle angle = new Angle(Double.parseDouble(this.commandSplit[3]));
 		boolean changePosition = false;
@@ -74,6 +88,11 @@ public class BehavioralSelect extends CommandParser{
 	public void switchPath()
 	{
 		//public CommandBehavioralSelectSwitch(java.lang.String id, boolean isPrimaryElseSecondary)
+		
+		if((!this.getCommand().contains("PATH") && (!this.getCommand().contains("PRIMARY") || !this.getCommand().contains("SECONDARY"))))
+		{
+			throw new IllegalArgumentException("Incorrect format for command - BehavioralSelect Class");
+		}
 		
 		String id = this.commandSplit[1];
 		boolean primaryOrSecondary = false;

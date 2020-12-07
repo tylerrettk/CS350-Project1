@@ -34,8 +34,11 @@ public class CreationalPower extends CommandParser{
 		else if(this.commandSplit[0].equalsIgnoreCase("station"))
  			station();
 		
+		else if(this.commandSplit[0].equalsIgnoreCase("substation"))
+ 			substation();
+		
 		else
-			substation();
+			throw new IllegalArgumentException("Incorrect format for CreationalPower class");
 	}
 	
 	/*
@@ -48,6 +51,13 @@ public class CreationalPower extends CommandParser{
 	private void catenary()
 	{
 		//public CommandCreatePowerCatenary(java.lang.String id, java.util.List<java.lang.String> idPoles)
+		
+		if(!this.getCommand().contains("WITH POLES"))
+		{
+			throw new IllegalArgumentException("Incorrect command construction for CreationalPower Class");
+		}
+		
+		
 		String id = this.commandSplit[1];
 		List<String> poles = new ArrayList<String>();
 		
@@ -60,9 +70,17 @@ public class CreationalPower extends CommandParser{
 		this.commandSchedule();
 	}
 	
+	//CREATE POWER POLE id1 ON TRACK id2 DISTANCE number FROM ( START | END )
 	private void pole()
 	{
 		//public CommandCreatePowerPole(java.lang.String id, TrackLocator locator)
+		
+		if(!this.getCommand().contains("ON TRACK") && !this.getCommand().contains("DISTANCE") && !this.getCommand().contains("FROM") && (!this.getCommand().contains("START") || !this.getCommand().contains("END")))
+		{
+			throw new IllegalArgumentException("Incorrect command construction for CreationalStock Class");
+		}
+		
+		
 		String id = this.commandSplit[1];
 		String id2 = this.commandSplit[4];
 		Double distance = Double.parseDouble(this.commandSplit[6]);
@@ -77,12 +95,19 @@ public class CreationalPower extends CommandParser{
 		this.commandSchedule();
 		
 	}
-	//	 * CREATE POWER STATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH ( SUBSTATION | SUBSTATIONS ) idn+
-
+	
+	//CREATE POWER STATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH ( SUBSTATION | SUBSTATIONS ) idn+
 	private void station()
 	{
 		//public CommandCreatePowerStation(java.lang.String id,CoordinatesWorld reference,
 		//CoordinatesDelta delta, java.util.List<java.lang.String> idSubstations)
+		
+		if(!this.getCommand().contains("REFERENCE") && !this.getCommand().contains("DELTA") && !this.getCommand().contains("WITH") && (!this.getCommand().contains("SUBSTATION") || !this.getCommand().contains("SUBSTATIONS")))
+		{
+			throw new IllegalArgumentException("Incorrect command construction for CreationalStock Class");
+		}
+		
+		
 		List<String> idSubstations = new ArrayList<String>();
 		String id = this.commandSplit[1];
 		String idCoordinate = this.commandSplit[3];
@@ -104,10 +129,18 @@ public class CreationalPower extends CommandParser{
 		this.commandSchedule();
 	}
 	
+	//CREATE POWER SUBSTATION id1 REFERENCE ( coordinates_world | ( '$' id2 ) ) DELTA coordinates_delta WITH CATENARIES idn+
 	private void substation()
 	{
 		//public CommandCreatePowerSubstation(java.lang.String id, CoordinatesWorld reference,
         //CoordinatesDelta delta,java.util.List<java.lang.String> idCatenaries4)
+		
+		if(!this.getCommand().contains("REFERENCE") && !this.getCommand().contains("DELTA") && !this.getCommand().contains("WITH") && !this.getCommand().contains("CATENARIES"))
+		{
+			throw new IllegalArgumentException("Incorrect command construction for CreationalStock Class");
+		}
+		
+		
 		List<String> idSubstations = new ArrayList<String>();
 		String id = this.commandSplit[1];
 		String idCoordinate = this.commandSplit[3];
@@ -119,7 +152,7 @@ public class CreationalPower extends CommandParser{
 		
 		CoordinatesDelta deltaCoor = new CoordinatesDelta(x,y);
 		
-		for(int z = 8; x < this.commandSplit.length; z++)
+		for(int z = 8; z < this.commandSplit.length; z++)
 		{
 			idSubstations.add(this.commandSplit[z]);
 		}
@@ -132,6 +165,12 @@ public class CreationalPower extends CommandParser{
 
 	private CoordinatesWorld createCoordinate(String idCoordinate)
 	{
+		
+		if((!this.getCommand().contains("'") && !this.getCommand().contains("*") && !this.getCommand().contains("/") && this.getCommand().contains("\"")) || this.getCommand().contains("$"))
+		{
+			throw new IllegalArgumentException("Incorrect format for coordinate");
+		}
+		
 		CoordinatesWorld refCoordinate;
 
 		if(idCoordinate.contains("$"))
@@ -156,7 +195,7 @@ public class CreationalPower extends CommandParser{
 			String longitude = coordinates[1];
 			hours = Integer.parseInt(longitude.substring(0,longitude.indexOf("*")));
 			mintues = Integer.parseInt(longitude.substring(longitude.indexOf("*") +1,longitude.indexOf("'")));
-			seconds = Integer.parseInt(longitude.substring(longitude.indexOf("*") +1,longitude.indexOf("'")));
+			seconds = Integer.parseInt(longitude.substring(longitude.indexOf("'") +1,longitude.indexOf('"')));
 			
 			Longitude longi = new Longitude(hours, mintues, seconds);
 			
