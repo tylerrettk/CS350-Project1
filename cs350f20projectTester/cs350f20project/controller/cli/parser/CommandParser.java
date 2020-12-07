@@ -60,7 +60,6 @@ public class CommandParser {
 			BehavioralSet behset = new BehavioralSet(parserHelper, commandText.substring(7));
 			behset.parse();
 		}
-		
 		else
 		{
 			MetaMiscCommands misc = new MetaMiscCommands(parserHelper, commandText);

@@ -166,7 +166,7 @@ public class CreationalPower extends CommandParser{
 	private CoordinatesWorld createCoordinate(String idCoordinate)
 	{
 		
-		if((!this.getCommand().contains("'") && !this.getCommand().contains("*") && !this.getCommand().contains("/") && this.getCommand().contains("\"")) || this.getCommand().contains("$"))
+		if((!this.getCommand().contains("'") && !this.getCommand().contains("*") && !this.getCommand().contains("/") && this.getCommand().contains("\"")) || !this.getCommand().contains("$"))
 		{
 			throw new IllegalArgumentException("Incorrect format for coordinate");
 		}

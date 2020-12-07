@@ -85,8 +85,6 @@ public class MetaMiscCommands extends CommandParser {
 			 this.command = new CommandMetaViewGenerate(id, origin, worldWidth, screenSize);
 			 this.parserHelper.getActionProcessor().schedule(this.command);
 		}
-		else
-			 throw new RuntimeException("Command Not Valid!");
 	}
 	
 	// COMMIT
@@ -110,8 +108,6 @@ public class MetaMiscCommands extends CommandParser {
 			 this.command = new CommandStructuralUncouple(idStock1, idStock2);
 			 this.parserHelper.getActionProcessor().schedule(this.command);
 		 }
-		 else 
-			 throw new RuntimeException("Command Not Valid!");
 		 
 	}
 	

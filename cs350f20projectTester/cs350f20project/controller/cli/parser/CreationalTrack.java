@@ -8,12 +8,11 @@ import cs350f20project.controller.command.creational.*;
 import cs350f20project.datatype.*;
 
 public class CreationalTrack extends CommandParser{
-
+	
 	private String[] commandSplit;
 	
 	public CreationalTrack(MyParserHelper parserHelper, String commandText) {
 		super(parserHelper, commandText);
-		
 		this.commandSplit = commandText.split(" ");
 	}
 	
@@ -122,9 +121,7 @@ public class CreationalTrack extends CommandParser{
 		String id = this.commandSplit[2];
 		
 		String idCoordinates = this.commandSplit[4];
-		System.out.println(idCoordinates);
 		CoordinatesWorld refCoordinate = createCoordinate(idCoordinates);
-		
 		String[] delta;
 		double x,y;
 		
@@ -527,9 +524,9 @@ public class CreationalTrack extends CommandParser{
 	private CoordinatesWorld createCoordinate(String idCoordinate)
 	{
 		
-		if((!this.getCommand().contains("'") && !this.getCommand().contains("*") && !this.getCommand().contains("/") && this.getCommand().contains("\"")) || this.getCommand().contains("$"))
+		if((!this.getCommand().contains("'") && !this.getCommand().contains("*") && !this.getCommand().contains("/") && this.getCommand().contains("\"")) || !this.getCommand().contains("$"))
 		{
-			throw new IllegalArgumentException("Incorrect format for coordinate: ");
+			throw new IllegalArgumentException("Incorrect format for coordinate: " + getCommand());
 		}
 		
 		CoordinatesWorld refCoordinate;
