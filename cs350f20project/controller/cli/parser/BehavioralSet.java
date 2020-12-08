@@ -45,20 +45,24 @@ public class BehavioralSet extends CommandParser{
 	{
 		//public CommandBehavioralSetDirection(java.lang.String id, boolean isForwardElseBackward)
 		
-		if((!this.getCommand().contains("DIRECTION") && (!this.getCommand().contains("FORWARD") || !this.getCommand().contains("BACKWARD"))))
+		String keyWord = "DIRECTION FORWARD";
+		String keyWord2 = "DIRECTION BACKWARD";
+		String command = this.commandSplit[1] +" "+this.commandSplit[2];
+		
+		if(keyWord.equalsIgnoreCase(command) || keyWord2.equalsIgnoreCase(command))
 		{
-			throw new IllegalArgumentException("Incorrect format for command - BehavioralSet Class");
+			String id = this.commandSplit[0];
+			boolean isForwardElseBackward = false;
+			
+			if(this.commandSplit[2].equalsIgnoreCase("forward"))
+				isForwardElseBackward = true;
+			
+			
+			this.setCommandType(new CommandBehavioralSetDirection(id, isForwardElseBackward));
+			this.commandSchedule();
 		}
-		
-		String id = this.commandSplit[0];
-		boolean isForwardElseBackward = false;
-		
-		if(this.commandSplit[2].equalsIgnoreCase("forward"))
-			isForwardElseBackward = true;
-		
-		
-		this.setCommandType(new CommandBehavioralSetDirection(id, isForwardElseBackward));
-		this.commandSchedule();
+		else
+			throw new IllegalArgumentException("Incorrect command construction for setting direction");
 	}
 	
 	public void reference()
