@@ -11,9 +11,9 @@ public class CreationalTrack extends CommandParser{
 	
 	private String[] commandSplit;
 	
-	public CreationalTrack(MyParserHelper parserHelper, String commandText) {
-		super(parserHelper, commandText);
-		this.commandSplit = commandText.split(" ");
+	public CreationalTrack(MyParserHelper parserHelper, String commandText, String temptext) {
+		super(parserHelper, temptext);
+		this.commandSplit = temptext.split(" ");
 	}
 	
 	public void parse()
@@ -516,7 +516,6 @@ public class CreationalTrack extends CommandParser{
 		{
 			tracks.add(this.commandSplit[x]);
 		}
-		
 		this.setCommandType(new CommandCreateTrackLayout(id, tracks));
 		this.commandSchedule();
 	}

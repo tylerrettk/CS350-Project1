@@ -2,6 +2,7 @@ package cs350f20project.controller.cli.parser;
 
 import cs350f20project.controller.command.A_Command;
 import cs350f20project.controller.command.meta.CommandMetaDoExit;
+import cs350f20project.controller.command.structural.CommandStructuralCommit;
 import cs350f20project.datatype.CoordinatesWorld;
 import cs350f20project.datatype.Latitude;
 import cs350f20project.datatype.Longitude;
@@ -10,8 +11,9 @@ public class CommandParser {
 	
 	protected MyParserHelper parserHelper;
 	protected A_Command command;
+	protected String temptext;
 	private String commandText;
-
+	
 	public CommandParser(MyParserHelper parserHelper, String commandText)
 	{
 		this.parserHelper = parserHelper;
@@ -26,43 +28,47 @@ public class CommandParser {
 	for(int x = 0; x < tempArr.length; x++) // handles multiple commands separated by ";" for rule #1
 	{
 		String CurrentCommand = tempArr[x];
-		
 		if (CurrentCommand.equalsIgnoreCase("@exit"))
 		{
 			A_Command command = new CommandMetaDoExit();
 			this.parserHelper.getActionProcessor().schedule(command);
 		} 
+		else if (CurrentCommand.equalsIgnoreCase("COMMIT"))
+		{
+			this.command = new CommandStructuralCommit();
+			this.parserHelper.getActionProcessor().schedule(this.command);
+		}
 		
 		else if(CurrentCommand.substring(0, 12).equalsIgnoreCase("CREATE POWER"))
 		{
-			CreationalPower power = new CreationalPower(parserHelper, commandText.substring(13));
+			CreationalPower power = new CreationalPower(parserHelper, commandText.substring(13), CurrentCommand.substring(13));
 			power.parse();
 		}
 		
 		else if(CurrentCommand.substring(0, 12).equalsIgnoreCase("CREATE STOCK"))
 		{
-			int k = this.commandText.indexOf("K")+2;
-			CreationalStock stock = new CreationalStock(parserHelper, commandText.substring(k));
+			int k = CurrentCommand.indexOf("K")+2;
+			CreationalStock stock = new CreationalStock(parserHelper, commandText.substring(k), CurrentCommand.substring(k));
 			stock.parse();
 		}
 		else if(CurrentCommand.substring(0, 12).equalsIgnoreCase("CREATE TRACK"))
 		{
-			CreationalTrack track = new CreationalTrack(parserHelper, commandText.substring(13));
+			CreationalTrack track = new CreationalTrack(parserHelper, commandText.substring(13), CurrentCommand.substring(13));
 			track.parse();
 		}
 		else if(CurrentCommand.substring(0, 9).equalsIgnoreCase("DO SELECT"))
 		{
-			BehavioralSelect behsel = new BehavioralSelect(parserHelper, commandText.substring(10));
+			BehavioralSelect behsel = new BehavioralSelect(parserHelper, commandText.substring(10), CurrentCommand.substring(10));
 			behsel.parse();
 		}
 		else if(CurrentCommand.substring(0, 6).equalsIgnoreCase("DO SET"))
 		{
-			BehavioralSet behset = new BehavioralSet(parserHelper, commandText.substring(7));
+			BehavioralSet behset = new BehavioralSet(parserHelper, commandText.substring(7), CurrentCommand.substring(7));
 			behset.parse();
 		}
 		else
 		{
-			MetaMiscCommands misc = new MetaMiscCommands(parserHelper, commandText);
+			MetaMiscCommands misc = new MetaMiscCommands(parserHelper, commandText, CurrentCommand);
 			misc.parse(); 
 		}
 	}

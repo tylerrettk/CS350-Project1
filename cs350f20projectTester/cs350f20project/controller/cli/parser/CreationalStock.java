@@ -7,10 +7,10 @@ public class CreationalStock extends CommandParser{
 
 	private String[] commandSplit;
 	
-	public CreationalStock(MyParserHelper parserHelper, String commandText) {
+	public CreationalStock(MyParserHelper parserHelper, String commandText, String temptext) {
 		super(parserHelper, commandText);
 		// TODO Auto-generated constructor stub
-		this.commandSplit = commandText.split(" ");
+		this.commandSplit = temptext.split(" ");
 
 	}
 	/*
@@ -42,15 +42,23 @@ public class CreationalStock extends CommandParser{
 	
 	private void createCar()
 	{		
-		String id = this.commandSplit[1];
+		String id = this.commandSplit[1], type;
 		
 		if(!this.commandSplit[2].equalsIgnoreCase("as"))
 		{
 			throw new IllegalArgumentException("Incorrect command construction for CreationalStock Class");
 		}
 		
-		String type = this.commandSplit[3];
+		try
+		{
+			type = this.commandSplit[3];
+		}
+		catch(Exception e)
+		{
+			throw new IllegalArgumentException("parser error for CreationalStock Class");
+		}
 		
+	
 		if(type.equalsIgnoreCase("box"))
 		{
 
@@ -89,7 +97,7 @@ public class CreationalStock extends CommandParser{
 		
 		else
 		{
-			throw new IllegalArgumentException("Incorrect command construction for CreationalStock Class");
+			throw new IllegalArgumentException("Incorrect command construction for creating a Stock Car Class");
 		}
 		
 		this.commandSchedule();
@@ -103,29 +111,47 @@ public class CreationalStock extends CommandParser{
 	private void createEngine()
 	{
 		//	 * CREATE STOCK ENGINE id1 AS DIESEL ON TRACK id2 DISTANCE number FROM ( START | END ) FACING ( START | END )
-		String id = this.commandSplit[1];
 		
-		boolean isFromAElseB = false, isFacingStartElseEnd = false;
+		String keyWord = "AS DIESEL ON TRACK DISTANCE FROM FACING";
 		
-		if(!this.getCommand().contains("AS DIESEL ON TRACK") && !this.getCommand().contains("DISTANCE") && !this.getCommand().contains("FACING") && (!this.getCommand().contains("START") || !this.getCommand().contains("END")))
+		String command = this.commandSplit[2] + " " + this.commandSplit[3] + " " + this.commandSplit[4] + " " + this.commandSplit[5] + " " + this.commandSplit[7] + " " 
+				+ this.commandSplit[9] + " "+ this.commandSplit[11];
+		
+		boolean startOrEnd = this.commandSplit[10].equalsIgnoreCase("start") || this.commandSplit[10].equalsIgnoreCase("end");
+		boolean endOrStart = this.commandSplit[12].equalsIgnoreCase("end") || this.commandSplit[12].equalsIgnoreCase("start");
+		
+		if(keyWord.equalsIgnoreCase(command)&& (startOrEnd||endOrStart))
 		{
-			throw new IllegalArgumentException("Incorrect command construction for CreationalStock Class");
+			String id = this.commandSplit[1];
+			
+			boolean isFromAElseB = false, isFacingStartElseEnd = false;
+			TrackLocator locator;
+			
+			
+			try
+			{
+				String id2 = this.commandSplit[6];
+				
+				int distance = Integer.parseInt(this.commandSplit[8]);
+				
+				if(this.commandSplit[10].equalsIgnoreCase("start"))
+					isFromAElseB = true;
+				
+				locator = new TrackLocator(id2, distance, isFromAElseB);
+				
+				if(this.commandSplit[11].equalsIgnoreCase("start"))
+					isFacingStartElseEnd = true;
+			}
+			catch(Exception e)
+			{
+				throw new IllegalArgumentException("incorrect command format for parser: " + this.getCommand());
+			}
+			
+			this.setCommandType(new CommandCreateStockEngineDiesel(id, locator, isFacingStartElseEnd));
+	
+			this.commandSchedule();
 		}
-		
-		String id2 = this.commandSplit[6];
-		
-		int distance = Integer.parseInt(this.commandSplit[8]);
-		
-		if(this.commandSplit[10].equalsIgnoreCase("start"))
-			isFromAElseB = true;
-		
-		TrackLocator locator = new TrackLocator(id2, distance, isFromAElseB);
-		
-		if(this.commandSplit[11].equalsIgnoreCase("start"))
-			isFacingStartElseEnd = true;
-		
-		this.setCommandType(new CommandCreateStockEngineDiesel(id, locator, isFacingStartElseEnd));
-
-		this.commandSchedule();
+		else 
+			throw new IllegalArgumentException("Incorrect command construction for creating an Engine");
 	}
 }

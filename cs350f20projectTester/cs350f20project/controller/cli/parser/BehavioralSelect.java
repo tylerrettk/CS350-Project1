@@ -9,10 +9,10 @@ public class BehavioralSelect extends CommandParser{
 	
 	private String[] commandSplit;
 
-	public BehavioralSelect(MyParserHelper parserHelper, String commandText) {
-		super(parserHelper, commandText);
+	public BehavioralSelect(MyParserHelper parserHelper, String commandText, String temptext) {
+		super(parserHelper, temptext);
 		// TODO Auto-generated constructor stub
-		commandSplit = commandText.split(" ");
+		commandSplit = temptext.split(" ");
 	}
 
 	@Override
@@ -47,41 +47,62 @@ public class BehavioralSelect extends CommandParser{
 	
 	public void drawbridge()
 	{
-		if((!this.getCommand().contains("POSITION") && (!this.getCommand().contains("UP") || !this.getCommand().contains("DOWN"))))
+		String keyWord = "POSITION UP";
+		String keyWord2 = "POSITION DOWN";
+		
+		String command = this.commandSplit[2] + " "+ this.commandSplit[3];
+		
+		if(keyWord.equalsIgnoreCase(command) || keyWord2.equalsIgnoreCase(command))
 		{
-			throw new IllegalArgumentException("Incorrect format for command - BehavioralSelect Class");
+			String id = this.commandSplit[1];
+			boolean position = false;
+			
+			if(this.commandSplit[3].equalsIgnoreCase("up"))
+				position = true;
+			
+			this.setCommandType(new CommandBehavioralSelectBridge(id, position));
+			this.commandSchedule();
 		}
-		
-		String id = this.commandSplit[1];
-		boolean position = false;
-		
-		if(this.commandSplit[3].equalsIgnoreCase("up"))
-			position = true;
-		
-		this.setCommandType(new CommandBehavioralSelectBridge(id, position));
-		this.commandSchedule();
+		else
+			throw new IllegalArgumentException("Incorrect command construction for selecting the position of the drawbridge");
 	}
 	
 	public void roundhouse()
 	{
 		//public CommandBehavioralSelectRoundhouse(java.lang.String id, Angle angle, boolean isClockwise)
 		
-		if((!this.getCommand().contains("POSITION") && (!this.getCommand().contains("CLOCKWISE") || !this.getCommand().contains("COUNTERCLOCKWISE"))))
+		String keyWord = "POSITION CLOCKWISE";
+		String keyWord2 = "POSITION COUNTERCLOCKWISE";
+		
+		String command = this.commandSplit[2] + " " + this.commandSplit[4];
+		
+		if(keyWord.equalsIgnoreCase(command) || keyWord2.equalsIgnoreCase(command))
 		{
-			throw new IllegalArgumentException("Incorrect format for command - BehavioralSelect Class");
+			String id = this.commandSplit[1];
+		
+			Angle angle;
+			
+			try
+			{
+				angle = new Angle(Double.parseDouble(this.commandSplit[3]));
+			}
+			catch(Exception e)
+			{
+				throw new IllegalArgumentException("incorrect command format: " + this.getCommand());
+			}
+			
+			
+			boolean changePosition = false;
+			if(this.commandSplit[4].equalsIgnoreCase("clockwise"))
+			{
+				changePosition = true;
+			}
+			
+			this.setCommandType(new CommandBehavioralSelectRoundhouse(id, angle, changePosition));
+			this.commandSchedule();
 		}
-		
-		String id = this.commandSplit[1];
-		Angle angle = new Angle(Double.parseDouble(this.commandSplit[3]));
-		boolean changePosition = false;
-		
-		if(this.commandSplit[4].equalsIgnoreCase("clockwise"))
-		{
-			changePosition = true;
-		}
-		
-		this.setCommandType(new CommandBehavioralSelectRoundhouse(id, angle, changePosition));
-		this.commandSchedule();
+		else
+			throw new IllegalArgumentException("Incorrect command construction for setting the position of the roundhouse");
 	
 	}
 	
@@ -89,19 +110,24 @@ public class BehavioralSelect extends CommandParser{
 	{
 		//public CommandBehavioralSelectSwitch(java.lang.String id, boolean isPrimaryElseSecondary)
 		
-		if((!this.getCommand().contains("PATH") && (!this.getCommand().contains("PRIMARY") || !this.getCommand().contains("SECONDARY"))))
+		String keyWord = "PATH PRIMARY";
+		String keyWord2 = "PATH SECONDARY";
+		
+		String command = this.commandSplit[2] + " " + this.commandSplit[3];
+		
+		if(keyWord.equalsIgnoreCase(command) || keyWord2.equalsIgnoreCase(command))
 		{
-			throw new IllegalArgumentException("Incorrect format for command - BehavioralSelect Class");
+			String id = this.commandSplit[1];
+			boolean primaryOrSecondary = false;
+			
+			if(this.commandSplit[3].equalsIgnoreCase("primary"))
+				primaryOrSecondary = true;
+			
+			this.setCommandType(new CommandBehavioralSelectSwitch(id, primaryOrSecondary));
+			this.commandSchedule();
 		}
-		
-		String id = this.commandSplit[1];
-		boolean primaryOrSecondary = false;
-		
-		if(this.commandSplit[3].equalsIgnoreCase("primary"))
-			primaryOrSecondary = true;
-		
-		this.setCommandType(new CommandBehavioralSelectSwitch(id, primaryOrSecondary));
-		this.commandSchedule();
+		else
+			throw new IllegalArgumentException("Incorrect command construction for setting path position Class");
 	}
 
 }

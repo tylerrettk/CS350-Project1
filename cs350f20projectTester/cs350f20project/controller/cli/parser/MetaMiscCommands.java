@@ -17,10 +17,10 @@ public class MetaMiscCommands extends CommandParser {
 	private String[] commandSplit;
 	private A_Command command;
 	private final String commandUse = "USE AS REFERENCE", commandOpen = "OPEN VIEW ORIGIN WORLD WIDTH SCREEN WIDTH HEIGHT", commandClose = "CLOSE VIEW", commandCouple = "COUPLE STOCK AND", commandUnCouple = "UNCOUPLE STOCK AND", commandLocate = "LOCATE STOCK ON TRACK DISTANCE FROM";          
-	
-	public MetaMiscCommands(MyParserHelper parserHelper, String commandText) {
+
+	public MetaMiscCommands(MyParserHelper parserHelper, String commandText, String temptext) {
 		super(parserHelper, commandText);
-		this.commandSplit = commandText.split(" ");
+		this.commandSplit = temptext.split(" "); 
 	}
 	
 	public void parse()
@@ -29,8 +29,6 @@ public class MetaMiscCommands extends CommandParser {
 			RunString();
 		else if(this.commandSplit[1].equalsIgnoreCase("VIEW"))
 			CloseOrOpenview();
-		else if(this.commandSplit[0].equalsIgnoreCase("COMMIT"))
-			Commit();
 		else if(this.commandSplit[0].equalsIgnoreCase("COUPLE") || this.commandSplit[0].equalsIgnoreCase("UNCOUPLE"))
 			Coupler();
 		else if(this.commandSplit[0].equalsIgnoreCase("LOCATE"))
@@ -42,7 +40,8 @@ public class MetaMiscCommands extends CommandParser {
 	// @RUN string
 	private void RunString()
 	{
-			A_Command command = new CommandMetaDoRun(commandSplit[1]);
+			String temp = commandSplit[1].replace("'", "");
+			A_Command command = new CommandMetaDoRun(temp);
 			parserHelper.getActionProcessor().schedule(command);
 	}
 	
@@ -87,13 +86,6 @@ public class MetaMiscCommands extends CommandParser {
 		}
 	}
 	
-	// COMMIT
-	private void Commit()
-	{
-		this.command = new CommandStructuralCommit();
-		this.parserHelper.getActionProcessor().schedule(this.command);
-	}
-	
 	// COUPLE STOCK id1 AND id2 
 	// UNCOUPLE STOCK id1 AND id2 
 	private void Coupler()
@@ -132,7 +124,7 @@ public class MetaMiscCommands extends CommandParser {
 			  }
 			  else if(startOrEnd.equalsIgnoreCase("END")){
 				  isStartOrEnd = false;
-			  }
+			  }   
 			  else
 				  throw new RuntimeException("START or END not Valid!");
 			  
