@@ -1,5 +1,7 @@
 package cs350f20project.controller.cli.parser;
-
+//CS350 Project
+//Tyler Rettkowski
+//Vernice Keyes
 import cs350f20project.controller.command.behavioral.*;
 
 public class BehavioralSet extends CommandParser{
